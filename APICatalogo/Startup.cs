@@ -27,6 +27,7 @@ namespace APICatalogo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //criacao de variavel para string de conexão
             string oracleString = Configuration.GetConnectionString("Default");
 
             services.AddDbContext<AppDbContext>(options =>
