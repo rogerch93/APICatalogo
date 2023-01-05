@@ -28,10 +28,10 @@ namespace APICatalogo
         public void ConfigureServices(IServiceCollection services)
         {
             //criacao de variavel para string de conexão
-            string oracleString = Configuration.GetConnectionString("Default");
+            string sqlString = Configuration.GetConnectionString("Default");
 
             services.AddDbContext<AppDbContext>(options =>
-            options.UseOracle(oracleString));
+            options.UseSqlServer(sqlString));
 
             services.AddControllers();
         }
