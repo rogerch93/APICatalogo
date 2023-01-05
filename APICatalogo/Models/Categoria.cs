@@ -13,11 +13,14 @@ namespace APICatalogo.Models
         {
             Produtos = new Collection<Produto>();
         }
+
         [Key]
         public int CategoriaId { get; set; }
+
         [Required]
         [MaxLength(100)]
         public string Nome { get; set; }
+
         [Required]
         [MaxLength(300)]
         public string ImgURL { get; set; }
