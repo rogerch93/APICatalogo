@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APICatalogo.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230106101840_PopulaDb")]
-    partial class PopulaDb
+    [Migration("20230107122800_PopulandoBD")]
+    partial class PopulandoBD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
