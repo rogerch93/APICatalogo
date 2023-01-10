@@ -24,7 +24,7 @@ namespace APICatalogo.Controllers
             return _context.Produtos.AsNoTracking().ToList();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name ="ObterProduto")]
         public ActionResult<Produto> GetProdutoById(int id) 
         {
             var produto = _context.Produtos.AsNoTracking().FirstOrDefault(p => p.ProdutoId == id);
@@ -33,6 +33,19 @@ namespace APICatalogo.Controllers
                 return NotFound();
             }
             return Ok(produto);
+        }
+
+        [HttpPost]
+        public ActionResult Post([FromBody] Produto produto) 
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            _context.Produtos.Add(produto);
+            _context.SaveChanges();
+            return new CreatedAtRouteResult("ObterProduto", new {id = produto.ProdutoId}, produto);
         }
     }
 }
