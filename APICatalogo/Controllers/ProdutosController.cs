@@ -47,5 +47,18 @@ namespace APICatalogo.Controllers
             _context.SaveChanges();
             return new CreatedAtRouteResult("ObterProduto", new {id = produto.ProdutoId}, produto);
         }
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, [FromBody] Produto produto) 
+        {
+            if(id != produto.ProdutoId) 
+            {
+                return BadRequest("Produto Inexistente");
+            }
+
+            _context.Entry(produto).State = EntityState.Modified;
+            _context.SaveChanges();
+            return Ok("Produto Alterado");
+        }
     }
 }
