@@ -53,12 +53,28 @@ namespace APICatalogo.Controllers
         {
             if(id != produto.ProdutoId) 
             {
-                return BadRequest("Produto Inexistente");
+                return BadRequest();
             }
 
             _context.Entry(produto).State = EntityState.Modified;
             _context.SaveChanges();
-            return Ok("Produto Alterado");
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Produto> Delete(int id) 
+        { 
+            var produto = _context.Produtos.FirstOrDefault(p => p.ProdutoId == id);
+            //var produto = _context.Produtos.Find(id);            //O metodo find vai direto na memória e localiza o produto (mas o id deve ser a chave primaria da tabela).
+
+            if(produto == null)
+            {
+                return NotFound();
+            }
+
+            _context.Produtos.Remove(produto);
+            _context.SaveChanges();
+            return produto;
         }
     }
 }
