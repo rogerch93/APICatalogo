@@ -24,5 +24,24 @@ namespace APICatalogo.Controllers
         {
             return _context.Categorias.AsNoTracking().ToList();
         }
+
+        [HttpGet ("{id}", Name ="ObterCategoria")]
+        public ActionResult<Categoria> GetCategoriaById(int id)
+        {
+            var categoria = _context.Categorias.AsNoTracking().FirstOrDefault(c => c.CategoriaId == id);
+            if(categoria == null) 
+            {
+                return NotFound();
+            }
+            return Ok(categoria);
+        }
+
+        [HttpPost]
+        public ActionResult Post([FromBody] Categoria categoria) 
+        {
+            _context.Categorias.Add(categoria);
+            _context.SaveChanges();
+            return new CreatedAtRouteResult("ObterCategoria", new { id = categoria.CategoriaId }, categoria);
+        }
     }
 }
