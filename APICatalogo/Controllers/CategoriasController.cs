@@ -43,5 +43,19 @@ namespace APICatalogo.Controllers
             _context.SaveChanges();
             return new CreatedAtRouteResult("ObterCategoria", new { id = categoria.CategoriaId }, categoria);
         }
+
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, [FromBody] Categoria categoria)
+        {
+            if (id != categoria.CategoriaId)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(categoria).State = EntityState.Modified;
+            _context.SaveChanges();
+            return Ok();
+        }
     }
 }
