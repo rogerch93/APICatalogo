@@ -57,5 +57,22 @@ namespace APICatalogo.Controllers
             _context.SaveChanges();
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Categoria> Delete(int id)
+        {
+            var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
+            //var produto = _context.Produtos.Find(id);            //O metodo find vai direto na memória e localiza o produto (mas o id deve ser a chave primaria da tabela).
+
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            _context.Categorias.Remove(categoria);
+            _context.SaveChanges();
+
+            return categoria;
+        }
     }
 }
