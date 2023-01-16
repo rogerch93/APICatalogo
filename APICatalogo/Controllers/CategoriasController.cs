@@ -19,17 +19,17 @@ namespace APICatalogo.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet("produtos")]
         public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
         {
             return _context.Categorias.Include(x => x.Produtos).ToList();
         }
 
-        //[HttpGet]
-        //public ActionResult<IEnumerable<Categoria>> GetCategorias() 
-        //{
-        //    return _context.Categorias.AsNoTracking().ToList();
-        //}
+        [HttpGet]
+        public ActionResult<IEnumerable<Categoria>> GetCategorias() 
+        {
+            return _context.Categorias.AsNoTracking().ToList();
+        }
 
         [HttpGet ("{id}", Name ="ObterCategoria")]
         public ActionResult<Categoria> GetCategoriaById(int id)
