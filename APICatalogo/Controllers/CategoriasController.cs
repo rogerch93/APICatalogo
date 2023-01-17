@@ -1,7 +1,9 @@
 ﻿using APICatalogo.Context;
 using APICatalogo.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,27 +21,44 @@ namespace APICatalogo.Controllers
             _context = context;
         }
 
-        [HttpGet("produtos")]
-        public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
-        {
-            return _context.Categorias.Include(x => x.Produtos).ToList();
-        }
+        //[HttpGet("produtos")]
+        //public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
+        //{
+        //    return _context.Categorias.Include(x => x.Produtos).ToList();
+        //}
 
         [HttpGet]
         public ActionResult<IEnumerable<Categoria>> GetCategorias() 
         {
-            return _context.Categorias.AsNoTracking().ToList();
+            try
+            {
+                return _context.Categorias.AsNoTracking().ToList();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Erro ao tentar obter as categorias do banco de dados");
+            }
         }
 
         [HttpGet ("{id}", Name ="ObterCategoria")]
         public ActionResult<Categoria> GetCategoriaById(int id)
         {
-            var categoria = _context.Categorias.AsNoTracking().FirstOrDefault(c => c.CategoriaId == id);
-            if(categoria == null) 
+            try
             {
-                return NotFound();
+                var categoria = _context.Categorias.AsNoTracking().FirstOrDefault(c => c.CategoriaId == id);
+                if (categoria == null)
+                {
+                    return NotFound($"A categoria com ID = {id} não foi encontrada");
+                }
+                return Ok(categoria);
             }
-            return Ok(categoria);
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Erro ao tentar obter as categorias do banco de dados");
+            }
+
         }
 
         [HttpPost]
