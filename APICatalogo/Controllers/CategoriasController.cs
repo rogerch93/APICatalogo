@@ -3,6 +3,7 @@ using APICatalogo.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace APICatalogo.Controllers
             {
                 return _context.Categorias.AsNoTracking().ToList();
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Erro ao tentar obter as categorias do banco de dados");
@@ -43,12 +44,21 @@ namespace APICatalogo.Controllers
         [HttpGet ("{id}", Name ="ObterCategoria")]
         public ActionResult<Categoria> GetCategoriaById(int id)
         {
-            var categoria = _context.Categorias.AsNoTracking().FirstOrDefault(c => c.CategoriaId == id);
-            if(categoria == null) 
+            try
             {
-                return NotFound();
+                var categoria = _context.Categorias.AsNoTracking().FirstOrDefault(c => c.CategoriaId == id);
+                if (categoria == null)
+                {
+                    return NotFound($"A categoria com ID = {id} não foi encontrada");
+                }
+                return Ok(categoria);
             }
-            return Ok(categoria);
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                   "Erro ao tentar obter as categorias do banco de dados");
+            }
+
         }
 
         [HttpPost]
