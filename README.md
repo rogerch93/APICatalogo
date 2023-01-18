@@ -1,6 +1,6 @@
 # APICatalogo
 
-## Projeto básico de uma API com as requisições de GET POST PUT DELETE
+## Projeto básico de uma API com as requisições de GET, POST, PUT e DELETE
 ### Linguagem utilizada no projeto: C#.
 ### A api contém as requisições básicas e foi introduzido tratativa de erros visando descrever melhor oque esta acontecendo se caso o usuário não utiliza-la corretamente.
 
