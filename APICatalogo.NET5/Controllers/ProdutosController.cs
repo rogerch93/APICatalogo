@@ -21,7 +21,7 @@ namespace APICatalogo.NET5.Controllers
             _context= context;
         }
 
-        [HttpGet]
+        [HttpGet("ListaProdutos")]
         public ActionResult<IEnumerable<Produto>> Getprodutos() 
         {
             try
@@ -32,6 +32,25 @@ namespace APICatalogo.NET5.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Erro ao tentar obter os produtos no banco de dados");
+            }
+        }
+
+        [HttpGet("{id}", Name ="ObtenhaProdutos")]
+        public ActionResult<Produto> GetProdutosById(int id) 
+        {
+            try
+            {
+                var produto = _context.Produtos.AsNoTracking().FirstOrDefault(p => p.ProdutoId == id);
+                if(produto == null)
+                {
+                    return NotFound($"O produto com ID = {id} não foi encontrado");
+                }
+                return Ok(produto);
+            }
+            catch (Exception) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Erro ao tentar obter produto no banco de dados");
             }
         }
     }
