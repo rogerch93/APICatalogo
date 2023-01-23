@@ -35,7 +35,7 @@ namespace APICatalogo.NET5.Controllers
             }
         }
 
-        [HttpGet("{id}", Name ="ObtenhaProdutos")]
+        [HttpGet("{id}Produtos")]
         public ActionResult<Produto> GetProdutosById(int id) 
         {
             try
