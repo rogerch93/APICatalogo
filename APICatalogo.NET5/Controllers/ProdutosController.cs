@@ -21,7 +21,7 @@ namespace APICatalogo.NET5.Controllers
             _context= context;
         }
 
-        [HttpGet]
+        [HttpGet("ListaProdutos")]
         public ActionResult<IEnumerable<Produto>> Getprodutos() 
         {
             try
