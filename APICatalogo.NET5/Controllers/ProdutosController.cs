@@ -81,7 +81,7 @@ namespace APICatalogo.NET5.Controllers
                 }
                 _context.Entry(produto).State = EntityState.Modified;
                 _context.SaveChanges();
-                return Ok($"A categoria com ID = {id} foi alterada com sucesso");
+                return Ok($"O Produto com ID = {id} foi alterado com sucesso");
             }
             catch(Exception)
             {
