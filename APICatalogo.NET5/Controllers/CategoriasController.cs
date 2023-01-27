@@ -65,5 +65,52 @@ namespace APICatalogo.NET5.Controllers
                     "Erro ao tentar adicionar uma nova categoria");
             }
         }
+
+        [HttpPut("{id}Categoria")]
+        public ActionResult AlterarCategoria(int id, [FromBody] Categoria categoria)
+        {
+            try
+            {
+                if (id != categoria.CategoriaId)
+                {
+                    return BadRequest($"Não foi possivel alterar a categoria com ID = {id}");
+                }
+                _context.Entry(categoria).State = EntityState.Modified;
+                _context.SaveChanges();
+                return Ok($"A categoria com ID = {id} foi alterada com sucesso");
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar atualizar a categoria com id = {id}");
+            }
+        }
+
+        [HttpDelete("{id}Categoria")]
+        public ActionResult<Categoria> Delete(int id)
+        {
+
+            try
+            {
+                var categoria = _context.Categorias.FirstOrDefault(c => c.CategoriaId == id);
+                //var produto = _context.Produtos.Find(id);            //O metodo find vai direto na memória e localiza o produto (mas o id deve ser a chave primaria da tabela).
+
+                if (categoria == null)
+                {
+                    return NotFound($"A Categoria com ID = {id} não foi encontrada");
+                }
+
+                _context.Categorias.Remove(categoria);
+                _context.SaveChanges();
+
+                return categoria;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar excluir a categoria com id ={id}");
+            }
+
+        }
     }
 }
