@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APICatalogo", "APICatalogo\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "APICatalogo.NET5", "APICatalogo.NET5\APICatalogo.NET5.csproj", "{545A967F-9FFA-4B48-9763-10CF53E3BF2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatalogoBlazor", "CatalogoBlazor\CatalogoBlazor.csproj", "{E359729D-DCBE-4E54-A67B-C6BABB734E46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatalogoBlazor", "CatalogoBlazor\CatalogoBlazor.csproj", "{E359729D-DCBE-4E54-A67B-C6BABB734E46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
