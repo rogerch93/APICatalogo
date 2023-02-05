@@ -1,8 +1,49 @@
 ﻿@page "/produtos"
+@using CatalogoBlazor.Data;
+@inject HttpClient http
 <h1>Catalogo de Produtos</h1>
 
 <p>Consulte e adicione produtos</p>
 
-@code {
+@if (produtos == null)
+{
+    <p>Carregando produtos...</p>
+}
+else
+{
+    <table class="table m-4 produtos-table">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Nome</td>
+                <td>Descrição</td>
+                <td>Preço</td>
+                <td>Estoque</td>
+                <td>Imagem</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var produto in produtos)
+            {
+                <tr>
+                    <td>@produto.ProdutoId</td>
+                    <td>@produto.Nome</td>
+                    <td>@produto.Descricao</td>
+                    <td>@produto.Preco</td>
+                    <td>@produto.Estoque</td>
+                    <td>@produto.ImgURL</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
+@code {
+    List<Produto> produtos { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var url = "https://www.macoratti.net.br/catalogo/api/produtos/v2/todos";
+        produtos = await http.GetFromJsonAsync<List<Produto>>(url);
+    }
 }
