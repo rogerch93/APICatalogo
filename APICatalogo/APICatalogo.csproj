@@ -29,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlazorCatalogo\BlazorCatalogo.csproj" />
     <ProjectReference Include="..\CatalogoBlazor\CatalogoBlazor.csproj" />
   </ItemGroup>
 
