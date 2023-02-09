@@ -17,7 +17,7 @@ namespace CatalogoBD
         {
             public Categoria()
             {
-                Produtos = new Collection<Produto>();
+                Produtos = new Collection<Produtos>();
             }
 
             [Key]
@@ -31,7 +31,7 @@ namespace CatalogoBD
             [MaxLength(300)]
             public string ImgURL { get; set; }
 
-            public ICollection<Produto> Produtos { get; set; }
+            public ICollection<Produtos> Produtos { get; set; }
         }
     }
 }
